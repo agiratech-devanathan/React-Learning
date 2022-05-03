@@ -13,13 +13,23 @@ class Post extends Component {
         postTitle: 'Post List'
     }
 
-    updateTitleHandler() {
-        console.log('update title')
+    updateTitleHandler(title,e) {
+        e.preventDefault();
+        console.log('update title with function')
         console.log(this)
         this.setState({
-            postTitle:'modified title'
+            postTitle: title
         })
-        
+
+    }
+    titleHandler = (title,e) => {
+        e.preventDefault();
+        console.log('update title with property function')
+        console.log(this)
+        this.setState({
+            postTitle: title
+        })
+
     }
     render() {
         setTimeout(() => {
@@ -41,7 +51,15 @@ class Post extends Component {
                     <h2>{this.state.postTitle} </h2>
                 </div>
                 <div className='update-btn-container'>
-                    <button onClick={this.updateTitleHandler.bind(this)} className='update-btn'>update Post title</button>
+              
+                    <a href='https://www.google.com/' 
+                    onClick={this.titleHandler.bind(this,'code world')} className='update-btn'>update Post with function</a>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <a href='https://www.google.com/' 
+                    onClick={this.updateTitleHandler.bind(this,'modified title')} className='update-btn'>update Post with property function</a>
+                     <button onClick={this.updateTitleHandler.bind(this)} className='update-btn'>update Post title</button> 
                 </div>
                 <hr />
                 <div className='post-content'>
