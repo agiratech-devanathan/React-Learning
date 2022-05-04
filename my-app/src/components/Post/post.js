@@ -7,8 +7,9 @@ const { default: SinglePost } = require("../SinglePost/single_post");
 class Post extends Component {
     state = {
         posts: [
-            { title: 'post title 1', description: 'Post description1' },
-            { title: 'post title 2', description: 'Post description2' }
+            { id: '1', title: 'post title 1', description: 'Post description1' },
+            { id: '2', title: 'post title 2', description: 'Post description2' },
+            { id: '3', title: 'post title 3', description: 'Post description3' }
         ],
         postTitle: 'Post List',
         showPost: false,
@@ -23,19 +24,43 @@ class Post extends Component {
 
     getPost() {
         if (!this.state.showPost) return null;
-        return (<div className='post-content'>
-            <SinglePost title={this.state.posts[0].title} description={this.state.posts[0].description} />
-            <SinglePost title={this.state.posts[1].title} description={this.state.posts[1].description} />
-        </div>)
+        // outputing the list of data using map function
+        // let post=this.state.posts.map((post)=>(
+        //     <SinglePost id={post.id} title={post.title} description={post.description} />
+        // ));
+        // outputing the list of data using for loop
+        let post = [];
+        for (let loopPost of this.state.posts) {
+            post.push(
+                <SinglePost
+                    id={loopPost.id}
+                    title={loopPost.title}
+                    description={loopPost.description}
+                />
+            )
+        }
+
+        return (
+        <div className='post-content'>
+            {
+            this.state.posts.map((post,index)=>{
+                return (
+                    <SinglePost
+                    key={index}
+                    
+                    title={post.title}
+                    description={post.description}
+                />
+                );
+            })
+            }
+           
+        </div>
+        );
     }
     render() {
         let post = null;
-        if (this.state.showPost) {
-            // post = (<div className='post-content'>
-            //     <SinglePost title={this.state.posts[0].title} description={this.state.posts[0].description} />
-            //     <SinglePost title={this.state.posts[1].title} description={this.state.posts[1].description} />
-            // </div>)
-        }
+
         return (
 
             <div className='post-container'>
@@ -49,18 +74,6 @@ class Post extends Component {
                         className='toggle-btn'>{this.state.showPost ? 'Hide post' : 'Show post'}</button>
                 </div>
                 <hr />
-                {/* {post} */}
-                {/* this is one of the method to show element using ternary operators */}
-                {/* {this.state.showPost ? (<div className='post-content'>
-                    <SinglePost title={this.state.posts[0].title} description={this.state.posts[0].description} />
-                    <SinglePost title={this.state.posts[1].title} description={this.state.posts[1].description} />
-                </div>) : null} */}
-                {/* this is another of the method to show element using ternary operators without else part using && symbol */}
-                {/* {this.state.showPost && (<div className='post-content'>
-                    <SinglePost title={this.state.posts[0].title} description={this.state.posts[0].description} />
-                    <SinglePost title={this.state.posts[1].title} description={this.state.posts[1].description} />
-                </div>)} */}
-                {/* this is another of the method to show element using function if else operators*/}
                 {this.getPost()}
             </div>
         );
